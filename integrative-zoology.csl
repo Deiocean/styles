@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl"
+       class="in-text"
+       version="1.0"
+       default-locale="en-US"
+       page-range-format="minimal"
+       demote-non-dropping-particle="never">
+
+ <!-- == Main Information == -->
+<info>
+  <title>Integrative Zoology</title>
+  <title-short>Integr. Zool.</title-short>
+  <eissn>1749-4877</eissn>
+  <id>http://www.zotero.org/styles/integrative-zoology</id>
+  <link href="http://www.zotero.org/styles/integrative-zoology" rel="self"/>
+  <link href="https://onlinelibrary.wiley.com/page/journal/17494877/homepage/forauthors.html" rel="documentation"/>
+
+  <author>
+    <name>Alfredo Marchiò</name>
+    <uri>https://orcid.org/0009-0002-9662-2674</uri>
+  </author>
+
+  <category citation-format="author-date"/>
+  
+  <category field="zoology"/>
+  <category field="biology"/>
+
+
+  <summary>
+  Harvard author-date style for Integrative Zoology (Integr. Zool.).
+  </summary>
+  <updated>2026-03-05T00:00:00Z</updated>
+  <rights license="http://creativecommons.org/licenses/by-sa/3.0/">
+    This CSL style was created by Alfredo Marchiò.
+  </rights>
+</info>
+
+  <!-- == Local tweaks == -->
+  <locale xml:lang="en-US">
+  <terms>
+    <term name="editor" form="short">ed.</term>
+    <term name="page" form="short">p.</term>
+    <term name="accessed">Cited</term>
+    <term name="available at">Available from URL:</term>
+  </terms>
+  </locale>
+
+<!-- == Macros == -->
+  <!-- Normal citations -->
+  <macro name="author-cite">
+    <names variable="author">
+      <name form="short" and="symbol"/>
+      <et-al font-style="italic"/>
+    </names>
+  </macro>
+
+  <!-- Narrative citations -->
+  <macro name="author-textcite">
+    <names variable="author">
+      <name form="short" and="text"/>
+      <et-al font-style="italic"/>
+    </names>
+  </macro>
+
+  <macro name="year">
+    <date variable="issued">
+      <date-part name="year"/>
+    </date>
+  </macro>
+
+  <macro name="title">
+    <text variable="title"/>
+  </macro>
+
+  <macro name="container-title-journal">
+    <text variable="container-title"/>
+  </macro>
+
+  <macro name="pages">
+    <text variable="page"/>
+  </macro>
+
+  <macro name="edition">
+    <choose>
+      <if variable="edition">
+        <group delimiter=" ">
+          <text variable="edition"/>
+          <text value="edn."/>
+        </group>
+      </if>
+    </choose>
+  </macro>
+
+  <macro name="publisher-place">
+    <group delimiter=", ">
+      <text variable="publisher"/>
+      <text variable="publisher-place"/>
+    </group>
+  </macro>
+
+  <!-- Website Citation -->
+  <macro name="access">
+    <choose>
+      <if variable="accessed">
+        <group prefix="[" suffix=".]">
+          <text term="accessed" suffix=" "/>
+          <date variable="accessed">
+            <date-part name="day" suffix=" "/>
+            <date-part name="month" form="short" suffix=" "/>
+            <date-part name="year"/>
+          </date>
+        </group>
+      </if>
+    </choose>
+  </macro>
+
+  <macro name="url">
+    <choose>
+      <if variable="URL">
+        <group delimiter=" ">
+          <text term="available at" suffix=" "/>
+          <text variable="URL"/>
+        </group>
+      </if>
+    </choose>
+  </macro>
+
+  <!-- == In-text Citation == -->
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true">
+    <sort>
+      <key macro="author-cite"/>
+      <key macro="year"/>
+    </sort>
+
+    <!-- Standard parenthetical: (Smith & Jones 2001; Brown et al. 2002) -->
+    <layout prefix="(" suffix=")" delimiter="; ">
+      <group delimiter=" ">
+        <text macro="author-cite"/>
+        <text macro="year"/>
+      </group>
+    </layout>
+  </citation>
+
+  <!-- == Bibliography == -->
+  <bibliography hanging-indent="true"
+                et-al-min="7"
+                et-al-use-first="3"
+                sort-separator=" ">
+    <sort>
+      <key macro="author-cite"/>
+      <key macro="year"/>
+      <key variable="title"/>
+    </sort>
+
+    <layout>
+      <!-- Author(s) (Year). -->
+      <group delimiter=" ">
+        <names variable="author" delimiter=", ">
+          <name and="text" name-as-sort-order="all" sort-separator=" " initialize-with="" delimiter=", "/>
+          <et-al font-style="italic"/>
+        </names>
+        <group prefix="(" suffix=").">
+          <text macro="year"/>
+        </group>
+      </group>
+
+      <choose>
+
+        <!-- Journal Article -->
+        <if type="article-journal">
+          <group prefix=" " delimiter=" ">
+            <text macro="title" suffix="."/>
+            <text macro="container-title-journal" suffix=""/>
+            <group delimiter=", ">
+              <text variable="volume"/>
+              <text macro="pages"/>
+            </group>
+          </group>
+        </if>
+
+        <!-- Book -->
+        <else-if type="book">
+          <group prefix=" " delimiter=" ">
+            <group delimiter=", ">
+              <text macro="title"/>
+              <text macro="edition"/>
+            </group>
+            <text value="."/>
+            <text macro="publisher-place" suffix="."/>
+          </group>
+        </else-if>
+
+        <!-- Book Chapter -->
+        <else-if type="chapter">
+          <group prefix=" " delimiter=" ">
+            <text macro="title" suffix="."/>
+            <group delimiter=" ">
+              <text value="In:"/>
+              <names variable="editor" delimiter=", ">
+                <name name-as-sort-order="all" and="text" sort-separator=" " initialize-with=""/>
+              </names>
+              <choose>
+                <if variable="editor" match="any">
+                  <text term="editor" form="short" suffix="."/>
+                </if>
+              </choose>
+            </group>
+            <text variable="container-title" suffix="."/>
+            <text macro="publisher-place" suffix=","/>
+            <group delimiter=" ">
+              <text term="page" form="short" suffix="."/>
+              <text macro="pages"/>
+            </group>
+          </group>
+        </else-if>
+
+        <!-- Conference Proceedings -->
+        <else-if type="paper-conference">
+          <group prefix=" " delimiter=" ">
+            <text macro="title" suffix="."/>
+            <text variable="container-title" suffix="."/>
+            <text macro="publisher-place" suffix="."/>
+          </group>
+        </else-if>
+
+        <!-- Webpage -->
+        <else-if type="webpage">
+          <group prefix=" " delimiter=" ">
+            <text macro="title" suffix="."/>
+            <text macro="access" suffix=" "/>
+            <text macro="url"/>
+          </group>
+        </else-if>
+
+        <!-- Default Fallback -->
+        <else>
+          <group prefix=" " delimiter=" ">
+            <text macro="title" suffix="."/>
+            <text variable="container-title" suffix="."/>
+            <text macro="publisher-place" suffix="."/>
+          </group>
+        </else>
+
+      </choose>
+    </layout>
+  </bibliography>
+</style>
